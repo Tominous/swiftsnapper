@@ -137,7 +137,7 @@ var SwiftSnapper;
         // Prevent the screen from sleeping while the camera is running
         var oDisplayRequest = new Windows.System.Display.DisplayRequest();
         // For listening to media property changes
-        //var oSystemMediaControls = Media.SystemMediaTransportControls.getForCurrentView();
+        var oSystemMediaControls = Media.SystemMediaTransportControls.getForCurrentView();
         // MediaCapture and its state variables
         var mediaCapture = null, isInitialized = false, isPreviewing = false, isRecording = false;
         // Information about the camera device
@@ -145,7 +145,7 @@ var SwiftSnapper;
         // Rotation metadata to apply to the preview stream and recorded videos (MF_MT_VIDEO_ROTATION)
         // Reference: http://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh868174.aspx
         var RotationKey = "C380465D-2271-428C-9B83-ECEA3B4A85C1";
-        //document.getElementById("ShutterBtn").addEventListener("click", shutterButton_tapped);
+        document.getElementById("ShutterBtn").addEventListener("click", shutterButton_tapped);
         function initialize(conf) {
             video = document.getElementById('CameraPreview');
             var cameraPanelEnumerate = Windows.Devices.Enumeration.Panel.back;
@@ -157,10 +157,10 @@ var SwiftSnapper;
             var Capture = Windows.Media.Capture;
             var mediaSettings = new Capture.MediaCaptureInitializationSettings();
             var rotationValue = Capture.VideoRotation.none;
-            //mediaSettings.audioDeviceId = "";
-            //mediaSettings.videoDeviceId = "";
-            //mediaSettings.streamingCaptureMode = Windows.Media.Capture.StreamingCaptureMode.video;;
-            //mediaSettings.photoCaptureSource = Capture.PhotoCaptureSource.photo;
+            mediaSettings.audioDeviceId = "";
+            mediaSettings.videoDeviceId = "";
+            mediaSettings.streamingCaptureMode = Windows.Media.Capture.StreamingCaptureMode.video;;
+            mediaSettings.photoCaptureSource = Capture.PhotoCaptureSource.photo;
             // Get available devices for capturing pictures
             findCameraDeviceByPanelAsync(cameraPanelEnumerate)
                 .then(function (camera) {
@@ -209,13 +209,13 @@ var SwiftSnapper;
                             console.log(Error.message);
                             console.log("Error in setPreviewRotationAsync");
                         }
-                        /*
+                        
                         setPreviewRotationAsync().then(function () {
                             console.log("setPreviewRotationAsync completed correctly");
                         }, function () {
                             console.log("Error in setPreviewEotationAsync");
                         })
-                        */
+                        
                     });
                 }, function (error) {
                     console.log("Error in mediaCapture.initializeAsync");
